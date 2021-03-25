@@ -1,0 +1,10 @@
+import { Model } from 'mongoose'
+import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { <%= namePascal %>, <%= namePascal %>Document } from 'app/Models/<%= namePascal %>'
+import { MongooseRepository } from '@secjs/core/build/Base/Repositories/MongooseRepository'
+
+@Injectable()
+export class <%= namePascal %>Repository extends MongooseRepository<<%= namePascal %>Document> {
+  @InjectModel(<%= namePascal %>.name) protected Model: Model<<%= namePascal %>Document>
+}

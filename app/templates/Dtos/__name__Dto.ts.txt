@@ -1,0 +1,7 @@
+export class Create<%= namePascal %>Dto {
+  // <%= namePascal %> props in here
+}
+
+export class Update<%= namePascal %>Dto {
+  // <%= namePascal %> props in here
+}

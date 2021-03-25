@@ -1,0 +1,22 @@
+import * as mongoose from 'mongoose'
+import { Schema, SchemaFactory } from '@nestjs/mongoose'
+
+export type <%= namePascal %>Document = <%= namePascal %> & mongoose.Document
+
+@Schema({ timestamps: true })
+export class <%= namePascal %> {
+  // <%= namePascal %> props goes in here
+}
+
+export const <%= namePascal %>Schema = SchemaFactory.createForClass(<%= namePascal %>)
+
+<%= namePascal %>Schema.methods.toJSON = function() {
+  const obj = this.toObject() as any
+
+  obj.id = obj._id
+  
+  delete obj._id
+  delete obj.__v
+
+  return obj
+}

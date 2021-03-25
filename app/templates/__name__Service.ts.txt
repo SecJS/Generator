@@ -1,0 +1,17 @@
+import { Inject, Injectable } from '@nestjs/common'
+import { ApiRequestContract } from '@secjs/core/build/Contracts'
+import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
+
+@Injectable()
+export class <%= namePascal %>Service {
+  @Inject(<%= namePascal %>Repository)
+  private <%= nameCamel %>Repository: <%= namePascal %>Repository
+
+  get apiRequest(): ApiRequestContract {
+    return {
+      where: [],
+      orderBy: [],
+      includes: [],
+    }
+  }
+}

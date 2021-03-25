@@ -1,0 +1,6 @@
+import { ApiTags } from '@nestjs/swagger'
+import { Controller } from '@nestjs/common'
+
+@Controller()
+@ApiTags('<%= namePascal %>')
+export class <%= namePascal %>Controller {}
