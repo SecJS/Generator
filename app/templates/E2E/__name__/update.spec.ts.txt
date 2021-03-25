@@ -8,9 +8,53 @@ import { dbPayload, updatePayload } from './constants'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
 
 describe('\n[E2E] <%= namePascal %> 🛠', () => {
-  it('should do something', async () => {
+  it('should update one <%= nameCamel %>', async () => {
+    const <%= nameCamel %> = await <%= nameCamel %>Repository.storeOne(dbPayload)
+
+    const status = 200
+    const method = 'PUT'
+    const code = 'RESPONSE'
+    const path = `/v1/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
+
     const { body } = await request(app.server.getHttpServer())
+      .put(path)
+      .send(updatePayload)
+      .expect(status)
+
+    expect(body.code).toBe(code)
+    expect(body.path).toBe(path)
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
   })
+
+  it('should throw a not found error', async () => {
+    const status = 404
+    const method = 'PUT'
+    const code = 'Error'
+    const path = '/v1/<%= namePluralCamel %>/507f1f77bcf86cd799439011'
+
+    const { body } = await request(app.server.getHttpServer())
+      .put(path)
+      .send(updatePayload)
+      .expect(404)
+
+    expect(body.code).toBe(code)
+    expect(body.path).toBe(path)
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.error).toEqual({
+      name: 'Error',
+      message: {
+        error: 'Not Found',
+        message: 'NOT_FOUND_<%= nameUp %>',
+        statusCode: 404,
+      },
+    })
+  })
+
+  // Implement app/Contract/Dtos/<%= nameCamel %>Dto.ts 
+  // Implement app/Controllers/Validators/<%= nameCamel %>Validator.ts
+  // And create tests to validate if the Validators are working well.
 })
 
 let app: App

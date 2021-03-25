@@ -8,8 +8,28 @@ import { App, Database } from 'test/Utils'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
 
 describe('\n[E2E] <%= namePascal %> 🗒', () => {
-  it('should do something', async () => {
+  it('should return all <%= namePluralCamel %> paginated', async () => {
+    const status = 200
+    const method = 'GET'
+    const code = 'RESPONSE'
+    const path = `/v1/<%= namePluralCamel %>?offset=0&limit=10`
+
+    await <%= nameCamel %>Repository.storeOne(dbPayload)
+    await <%= nameCamel %>Repository.storeOne(dbPayload)
+
     const { body } = await request(app.server.getHttpServer())
+      .get(path)
+      .expect(status)
+
+    expect(body.code).toBe(code)
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.data.data[0].id).toBeTruthy()
+    expect(body.data.data[0]._id).toBeFalsy()
+    expect(body.data.data).toHaveLength(2)
+    expect(body.data.pagination.offset).toBe(0)
+    expect(body.data.pagination.limit).toBe(10)
+    expect(body.data.pagination.total).toBeTruthy()
   })
 })
 

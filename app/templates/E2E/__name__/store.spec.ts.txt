@@ -7,9 +7,26 @@ import { storePayload } from './constants'
 import { App, Database } from 'test/Utils'
 
 describe('\n[E2E] <%= namePascal %> 🧱', () => {
-  it('should do something', async () => {
+  it('should create a new <%= nameCamel %>', async () => {
+    const status = 201
+    const method = 'POST'
+    const code = 'RESPONSE'
+    const path = '/v1/<%= namePluralCamel %>'
+
     const { body } = await request(app.server.getHttpServer())
+      .post(path)
+      .send(storePayload)
+      .expect(status)
+
+    expect(body.code).toBe(code)
+    expect(body.path).toBe(path)
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
   })
+
+  // Implement app/Contract/Dtos/<%= nameCamel %>Dto.ts 
+  // Implement app/Controllers/Validators/<%= nameCamel %>Validator.ts
+  // And create tests to validate if the Validators are working well.
 })
 
 let app: App

@@ -1,6 +1,66 @@
-import { ApiTags } from '@nestjs/swagger'
-import { Controller } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common'
 
-@Controller()
+import {
+  Create<%= namePascal %>Validator,
+  Update<%= namePascal %>Validator,
+} from 'app/Controllers/Validators/<%= namePascal %>Validator'
+
+import { ObjectIdPipe } from 'app/Pipes/ObjectIdPipe'
+import { <%= namePascal %>Service } from 'app/Services/Api/<%= namePascal %>Service'
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
+import { JoifulValidationPipe } from 'app/Pipes/JoifulValidationPipe'
+import { Pagination } from 'app/Controllers/Http/Decorators/Pagination'
+import { PaginationContract } from '@secjs/core/build/Contracts/PaginationContract'
+
 @ApiTags('<%= namePascal %>')
-export class <%= namePascal %>Controller {}
+@Controller('v1/<%= namePluralCamel %>')
+export class <%= namePascal %>Controller {
+  @Inject(<%= namePascal %>Service)
+  private <%= nameCamel %>Service: <%= namePascal %>Service
+
+  @Get()
+  @ApiQuery({ name: 'limit', allowEmptyValue: true })
+  @ApiQuery({ name: 'offset', allowEmptyValue: true })
+  async index(
+    @Query() queries: any,
+    @Pagination() pagination: PaginationContract,
+  ) {
+    return this.<%= nameCamel %>Service.findAll(pagination, queries)
+  }
+
+  @Post()
+  async store(@Body(JoifulValidationPipe) body: Create<%= namePascal %>Validator) {
+    return this.<%= nameCamel %>Service.createOne(body)
+  }
+
+  @Get('/:id')
+  @ApiParam({ name: 'id' })
+  async show(@Query() queries: any, @Param(ObjectIdPipe) params: any) {
+    return this.<%= nameCamel %>Service.findOne(params.id, queries)
+  }
+
+  @Put('/:id')
+  @ApiParam({ name: 'id' })
+  async update(
+    @Param(ObjectIdPipe) params: any,
+    @Body(JoifulValidationPipe) body: Update<%= namePascal %>Validator,
+  ) {
+    return this.<%= nameCamel %>Service.updateOne(params.id, body)
+  }
+
+  @Delete('/:id')
+  @ApiParam({ name: 'id' })
+  async delete(@Param(ObjectIdPipe) params: any) {
+    return this.<%= nameCamel %>Service.deleteOne(params.id)
+  }
+}

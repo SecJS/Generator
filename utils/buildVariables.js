@@ -18,7 +18,8 @@ module.exports = {
         namePlural: namePlural,
         nameCamel: camelCase(name),
         namePascal: camelCase(name, { pascalCase: true }),
-        namePluralPascal: camelCase(namePlural, { pascalCase: true })
+        namePluralPascal: camelCase(namePlural, { pascalCase: true }),
+        namePluralCamel: camelCase(namePlural)
       },
       vars
     );
