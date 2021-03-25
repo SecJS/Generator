@@ -1,6 +1,6 @@
 {
   "name": "generator-secjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🧬 Generator for any NodeJS Project",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "yosay": "^2.0.1"
   },
   "files": [
-    "app"
+    "app",
+    "utils"
   ]
 }
