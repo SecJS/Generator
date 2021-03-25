@@ -24,8 +24,8 @@ describe('\n[E2E] <%= namePascal %> 🧱', () => {
     expect(body.status).toBe(status)
   })
 
-  // Implement app/Contract/Dtos/<%= nameCamel %>Dto.ts
-  // Implement app/Controllers/Validators/<%= nameCamel %>Validator.ts
+  // Implement app/Contract/Dtos/<%= namePascal %>Dto.ts
+  // Implement app/Controllers/Validators/<%= namePascal %>Validator.ts
   // And create tests to validate if the Validators are working well.
 })
 
