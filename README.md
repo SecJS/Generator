@@ -15,7 +15,7 @@
 
 The intention behind this repository is to always mantain an `Generator` project to any NodeJS project.
 
-<img src=".github/generator.jpg" width="200px" align="right" hspace="30px" vspace="100px">
+<img src=".github/generator.png" width="200px" align="right" hspace="30px" vspace="100px">
 
 ## Installation
 
@@ -29,13 +29,13 @@ npm install -g generator-secjs
 Then generate your files:
 
 ```bash
-yo secjs
+yo secjs Foo
 ```
 
 or
 
 ```bash
-yo generator-secjs
+yo generator-secjs Customer
 ```
 
 ## License

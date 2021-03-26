@@ -1,36 +1,36 @@
-"use strict";
+'use strict'
 
-const { resolve } = require("path");
-const { readdir } = require("fs").promises;
+const { resolve } = require('path')
+const { readdir } = require('fs').promises
 
-const pluralize = require("pluralize");
+const pluralize = require('pluralize')
 
 async function* getFiles(dir) {
-  const dirents = await readdir(dir, { withFileTypes: true });
+  const dirents = await readdir(dir, { withFileTypes: true })
   for (const dirent of dirents) {
-    const res = resolve(dir, dirent.name);
+    const res = resolve(dir, dirent.name)
     if (dirent.isDirectory()) {
-      yield* getFiles(res);
+      yield* getFiles(res)
     } else {
-      yield res;
+      yield res
     }
   }
 }
 
 async function* makeFileTemplate(directoryPath, name) {
-  const namePlural = pluralize(name);
+  const namePlural = pluralize(name)
 
   for await (const f of getFiles(directoryPath)) {
     yield {
-      src: f.replace(directoryPath, ""),
+      src: f.replace(directoryPath, ''),
       dist: f
-        .replace(directoryPath, "")
-        .replace(".txt", "")
-        .replace("__name__", name)
-        .replace("__name_plural__", namePlural)
-        .replace("__name_low__", name.toLowerCase())
-    };
+        .replace(directoryPath, '')
+        .replace('.txt', '')
+        .replace('__name__', name)
+        .replace('__name_plural__', namePlural)
+        .replace('__name_low__', name.toLowerCase()),
+    }
   }
 }
 
-module.exports = { getFiles, makeFileTemplate };
+module.exports = { getFiles, makeFileTemplate }

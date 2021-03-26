@@ -1,17 +1,17 @@
-"use strict";
+'use strict'
 
-const pluralize = require("pluralize");
-const camelCase = require("camelcase");
+const pluralize = require('pluralize')
+const camelCase = require('camelcase')
 
 module.exports = {
-  buildVariables: vars => {
-    const { name } = vars;
-    const namePlural = pluralize(name);
-    const basePath = vars.basePath || "./";
+  buildVariables: (vars) => {
+    const { name } = vars
+    const namePlural = pluralize(name)
+    const basePath = vars.basePath || './'
 
     return Object.assign(
       {
-        path: `${basePath}/${namePlural}`
+        path: `${basePath}`,
       },
       {
         nameUp: name.toUpperCase(),
@@ -19,9 +19,9 @@ module.exports = {
         nameCamel: camelCase(name),
         namePascal: camelCase(name, { pascalCase: true }),
         namePluralPascal: camelCase(namePlural, { pascalCase: true }),
-        namePluralCamel: camelCase(namePlural)
+        namePluralCamel: camelCase(namePlural),
       },
       vars
-    );
-  }
-};
+    )
+  },
+}
