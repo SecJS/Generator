@@ -1,6 +1,6 @@
 {
   "name": "generator-secjs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "🧬 Generator for any NodeJS Project",
   "main": "app/index.js",
   "scripts": {
