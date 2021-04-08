@@ -56,7 +56,7 @@ describe('\n[E2E] <%= namePascal %> 🛠', () => {
   })
 
   // Implement app/Contract/Dtos/<%= namePascal %>Dto.ts
-  // Implement app/Controllers/Validators/<%= namePascal %>Validator.ts
+  // Implement app/Validators/<%= namePascal %>Validator.ts
   // And create tests to validate if the Validators are working well.
 })
 

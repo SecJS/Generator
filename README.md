@@ -29,13 +29,13 @@ npm install -g generator-secjs
 Then generate your files:
 
 ```bash
-yo secjs Foo
+yo secjs Foo --path=./Bar
 ```
 
 or
 
 ```bash
-yo generator-secjs Customer
+yo generator-secjs Customer --path=./Customer
 ```
 
 ## License

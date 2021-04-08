@@ -14,13 +14,13 @@ import {
 import {
   Create<%= namePascal %>Validator,
   Update<%= namePascal %>Validator,
-} from 'app/Controllers/Validators/<%= namePascal %>Validator'
+} from 'app/Validators/<%= namePascal %>Validator'
 
 import { AuthGuard } from '@nestjs/passport'
 import { ObjectIdPipe } from 'app/Pipes/ObjectIdPipe'
+import { Pagination } from 'app/Decorators/Http/Pagination'
 import { <%= namePascal %>Service } from 'app/Services/Api/<%= namePascal %>Service'
 import { JoifulValidationPipe } from 'app/Pipes/JoifulValidationPipe'
-import { Pagination } from 'app/Controllers/Http/Decorators/Pagination'
 import { ApiParam, ApiQuery, ApiTags, ApiBearerAuth } from '@nestjs/swagger'
 import { PaginationContract } from '@secjs/core/build/Contracts/PaginationContract'
 
