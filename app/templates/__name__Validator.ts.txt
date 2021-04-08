@@ -1,7 +1,6 @@
-import * as Joiful from 'joiful'
+// Use Joiful to valide inside <%= namePascal %>Validators
+// import * as Joiful from 'joiful'
 
-// Use ApiProperty() to show in swagger documentation the body payload
-import { ApiProperty } from '@nestjs/swagger'
 import { Create<%= namePascal %>Dto, Update<%= namePascal %>Dto } from 'app/Contracts/Dtos/<%= namePascal %>Dto'
 
 export class Create<%= namePascal %>Validator extends Create<%= namePascal %>Dto {

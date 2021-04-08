@@ -1,13 +1,12 @@
 import * as mongoose from 'mongoose'
 import { Schema, SchemaFactory } from '@nestjs/mongoose'
 
-export type <%= namePascal %>Document = <%= namePascal %> & mongoose.Document
-
 @Schema({ timestamps: true })
 export class <%= namePascal %> {
   // <%= namePascal %> props goes in here
 }
 
+export type <%= namePascal %>Document = <%= namePascal %> & mongoose.Document
 export const <%= namePascal %>Schema = SchemaFactory.createForClass(<%= namePascal %>)
 
 <%= namePascal %>Schema.methods.toJSON = function() {

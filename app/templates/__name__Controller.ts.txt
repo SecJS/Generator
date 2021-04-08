@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common'
 
 import {
@@ -15,22 +16,25 @@ import {
   Update<%= namePascal %>Validator,
 } from 'app/Controllers/Validators/<%= namePascal %>Validator'
 
+import { AuthGuard } from '@nestjs/passport'
 import { ObjectIdPipe } from 'app/Pipes/ObjectIdPipe'
 import { <%= namePascal %>Service } from 'app/Services/Api/<%= namePascal %>Service'
-import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
 import { JoifulValidationPipe } from 'app/Pipes/JoifulValidationPipe'
 import { Pagination } from 'app/Controllers/Http/Decorators/Pagination'
+import { ApiParam, ApiQuery, ApiTags, ApiBearerAuth } from '@nestjs/swagger'
 import { PaginationContract } from '@secjs/core/build/Contracts/PaginationContract'
 
+@ApiBearerAuth()
 @ApiTags('<%= namePascal %>')
-@Controller('v1/<%= namePluralCamel %>')
+@UseGuards(AuthGuard())
+@Controller('<%= namePluralCamel %>')
 export class <%= namePascal %>Controller {
   @Inject(<%= namePascal %>Service)
   private <%= nameCamel %>Service: <%= namePascal %>Service
 
   @Get()
   @ApiQuery({ name: 'limit', allowEmptyValue: true })
-  @ApiQuery({ name: 'offset', allowEmptyValue: true })
+  @ApiQuery({ name: 'skip', allowEmptyValue: true })
   async index(
     @Query() queries: any,
     @Pagination() pagination: PaginationContract,

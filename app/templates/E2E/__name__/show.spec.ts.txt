@@ -6,6 +6,7 @@ import { dbPayload } from './constants'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
+import { IdentityCollection } from 'app/Services/Collections/IdentityCollection'
 
 describe('\n[E2E] <%= namePascal %> 🔍', () => {
   it('should return one <%= nameCamel %>', async () => {
@@ -14,10 +15,11 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
     const status = 200
     const method = 'GET'
     const code = 'RESPONSE'
-    const path = `/v1/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
+    const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
 
     const { body } = await request(app.server.getHttpServer())
       .get(path)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(status)
 
     expect(body.code).toBe(code)
@@ -36,6 +38,7 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
 
     const { body } = await request(app.server.getHttpServer())
       .get(path)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(404)
 
     expect(body.code).toBe(code)
@@ -57,6 +60,9 @@ let app: App
 let database: Database
 let <%= nameCamel %>Repository: <%= namePascal %>Repository
 
+let accessToken: string
+let identityCollection: IdentityCollection
+
 beforeEach(async () => {
   Log.test(`Executing ${beforeEach.name}`)
 
@@ -64,6 +70,13 @@ beforeEach(async () => {
   database = new Database(app)
 
   <%= nameCamel %>Repository = database.getRepository(<%= namePascal %>Repository)
+  identityCollection = app.getInstance<IdentityCollection>(
+        IdentityCollection.name,
+      )
+
+    const { access_token } = await identityCollection.getUserToken()
+
+    accessToken = access_token
 })
 
 afterEach(async () => {
