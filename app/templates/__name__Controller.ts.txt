@@ -22,7 +22,7 @@ import { Pagination } from 'app/Decorators/Http/Pagination'
 import { <%= namePascal %>Service } from 'app/Services/Api/<%= namePascal %>Service'
 import { JoifulValidationPipe } from 'app/Pipes/JoifulValidationPipe'
 import { ApiParam, ApiQuery, ApiTags, ApiBearerAuth } from '@nestjs/swagger'
-import { PaginationContract } from '@secjs/core/build/Contracts/PaginationContract'
+import { PaginationContract } from '@secjs/core/contracts/PaginationContract'
 
 @ApiBearerAuth()
 @ApiTags('<%= namePascal %>')

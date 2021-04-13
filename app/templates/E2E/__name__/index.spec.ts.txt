@@ -13,7 +13,7 @@ describe('\n[E2E] <%= namePascal %> 🗒', () => {
     const status = 200
     const method = 'GET'
     const code = 'RESPONSE'
-    const path = `/<%= namePluralCamel %>?offset=0&limit=10`
+    const path = `/<%= namePluralCamel %>?skip=0&limit=10`
 
     await <%= nameCamel %>Repository.storeOne(dbPayload)
     await <%= nameCamel %>Repository.storeOne(dbPayload)
@@ -29,7 +29,7 @@ describe('\n[E2E] <%= namePascal %> 🗒', () => {
     expect(body.data.data[0].id).toBeTruthy()
     expect(body.data.data[0]._id).toBeFalsy()
     expect(body.data.data).toHaveLength(2)
-    expect(body.data.pagination.offset).toBe(0)
+    expect(body.data.pagination.skip).toBe(0)
     expect(body.data.pagination.limit).toBe(10)
     expect(body.data.pagination.total).toBeTruthy()
   })

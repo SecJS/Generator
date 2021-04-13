@@ -1,7 +1,7 @@
 import {
   ApiRequestContract,
   PaginationContract,
-} from '@secjs/core/build/Contracts'
+} from '@secjs/core/contracts'
 
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'

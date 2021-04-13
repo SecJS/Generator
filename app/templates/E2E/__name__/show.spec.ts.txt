@@ -34,7 +34,7 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
     const status = 404
     const method = 'GET'
     const code = 'Error'
-    const path = '/v1/<%= namePluralCamel %>/507f1f77bcf86cd799439011'
+    const path = '/<%= namePluralCamel %>/507f1f77bcf86cd799439011'
 
     const { body } = await request(app.server.getHttpServer())
       .get(path)
