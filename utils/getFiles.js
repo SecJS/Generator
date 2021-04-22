@@ -17,15 +17,15 @@ async function* getFiles(dir) {
   }
 }
 
-async function* makeFileTemplate(directoryPath, name) {
+async function* makeFileTemplate(frameworkDirectory, name) {
   const namePlural = pluralize(name)
 
-  for await (const f of getFiles(directoryPath)) {
+  for await (const f of getFiles(frameworkDirectory)) {
     yield {
-      src: f.replace(directoryPath, ''),
+      src: f.replace(frameworkDirectory, ''),
       dist: f
-        .replace(directoryPath, '')
-        .replace('.txt', '')
+        .replace(frameworkDirectory, '')
+        .replace('.ejs', '')
         .replace('__name__', name)
         .replace('__name_plural__', namePlural)
         .replace('__name_low__', name.toLowerCase()),

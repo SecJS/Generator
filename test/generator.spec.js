@@ -10,6 +10,7 @@ describe('\n Single Module Architecture NestJS 😸', () => {
       .run(path.join(__dirname, '../app'))
       .withOptions({ path: './Foo' })
       .withArguments('Bar')
+      .withPrompts({ framework: 'nestjs' })
   })
 
   it('should create all files from resource Bar in folder Foo', () => {
