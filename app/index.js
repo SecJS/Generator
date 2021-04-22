@@ -27,21 +27,31 @@ class SecGenerator extends Generator {
     })
   }
 
-  Prompting() {
+  async Prompting() {
     this.log(yosay(`Welcome to ${chalk.greenBright('SecJS')} generator!`))
 
     this.variables = buildVariables({
       name: this.options.name,
       basePath: this.options.path,
     })
+
+    this.answers = await this.prompt([
+      {
+        type: 'list',
+        name: 'framework',
+        message: 'Select your framework:',
+        choices: [{ name: 'NestJS', value: 'nestjs' }],
+      },
+    ])
   }
 
   async writing() {
-    const dir = path.join(__dirname, 'templates/')
+    const framework = this.answers.framework
+    const dir = path.join(__dirname, `templates/${framework}/`)
 
     for await (const f of makeFileTemplate(dir, this.variables.name)) {
       this.fs.copyTpl(
-        this.templatePath(f.src),
+        this.templatePath(`${framework}/${f.src}`),
         this.destinationPath(`${this.variables.path}/${f.dist}`),
         this.variables
       )
