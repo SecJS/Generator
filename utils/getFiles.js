@@ -25,7 +25,7 @@ async function* makeFileTemplate(frameworkDirectory, name) {
       src: f.replace(frameworkDirectory, ''),
       dist: f
         .replace(frameworkDirectory, '')
-        .replace('.ejs', '')
+        .replace('.txt', '')
         .replace('__name__', name)
         .replace('__name_plural__', namePlural)
         .replace('__name_low__', name.toLowerCase()),
