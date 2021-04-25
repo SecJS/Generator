@@ -1,6 +1,6 @@
 # Generator 🧬
 
-> Generator for any NodeJS Project
+> Generator for any NodeJS Project or Framework
 
 [![GitHub followers](https://img.shields.io/github/followers/jlenon7.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/jlenon7?tab=followers)
 [![GitHub stars](https://img.shields.io/github/stars/secjs/generator.svg?style=social&label=Star&maxAge=2592000)](https://github.com/secjs/generator/stargazers/)
@@ -13,7 +13,7 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?style=for-the-badge&logo=appveyor">
 </p>
 
-The intention behind this repository is to always mantain an `Generator` project to any NodeJS project.
+The intention behind this repository is to always maintain a code `Generator` to any NodeJS project or framework.
 
 <img src=".github/generator.png" width="200px" align="right" hspace="30px" vspace="100px">
 
@@ -37,6 +37,14 @@ or
 ```bash
 yo generator-secjs Customer --path=./Customer
 ```
+
+## Next Steps
+
+- [x] Generate code by Framework/Language
+- [ ] Ask in Generator CLI if wants to add Model property
+- [ ] Ask if wants to generate code using SecJS stuffs or not
+
+...
 
 ## License
 
