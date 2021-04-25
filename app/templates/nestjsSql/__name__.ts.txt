@@ -1,0 +1,15 @@
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+
+@Entity()
+export class <%= namePascal %>  {
+  @PrimaryGeneratedColumn()
+  id: string
+
+  // <%= namePascal %> props goes in here
+
+  @Column()
+  deletedAt: Date
+
+  @Column({ enum: ['pendent', 'active'] })
+  status: string
+}

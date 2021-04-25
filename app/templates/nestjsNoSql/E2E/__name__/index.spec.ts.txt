@@ -1,0 +1,55 @@
+import 'start/env'
+import Log from 'start/debug'
+import * as request from 'supertest'
+
+import { dbPayload } from './constants'
+import { AppModule } from 'app/AppModule'
+import { App, Database } from 'test/Utils'
+import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
+
+describe('\n[E2E] <%= namePascal %> 🗒', () => {
+  it('should return all <%= namePluralCamel %> paginated', async () => {
+    const status = 200
+    const method = 'GET'
+    const code = 'RESPONSE'
+    const path = `/<%= namePluralCamel %>?skip=0&limit=10`
+
+    await <%= nameCamel %>Repository.storeOne(dbPayload)
+    await <%= nameCamel %>Repository.storeOne(dbPayload)
+
+    const { body } = await request(app.server.getHttpServer())
+      .get(path)
+      .expect(status)
+
+    expect(body.code).toBe(code)
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.data.data[0].id).toBeTruthy()
+    expect(body.data.data[0]._id).toBeFalsy()
+    expect(body.data.data).toHaveLength(2)
+    expect(body.data.pagination.skip).toBe(0)
+    expect(body.data.pagination.limit).toBe(10)
+    expect(body.data.pagination.total).toBeTruthy()
+  })
+})
+
+let app: App
+let database: Database
+let <%= nameCamel %>Repository: <%= namePascal %>Repository
+
+beforeEach(async () => {
+  Log.test(`Executing ${beforeEach.name}`)
+
+  app = await new App([AppModule]).initApp()
+  database = new Database(app)
+
+  <%= nameCamel %>Repository = database.getRepository(<%= namePascal %>Repository)
+})
+
+afterEach(async () => {
+  Log.test(`Executing ${afterEach.name}`)
+
+  await database.dropDatabase()
+  await database.closeConnection()
+  await app.closeApp()
+})

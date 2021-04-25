@@ -1,0 +1,66 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
+
+import {
+  Create<%= namePascal %>Validator,
+  Update<%= namePascal %>Validator,
+} from 'app/Validators/<%= namePascal %>Validator'
+
+import { Pagination } from 'app/Decorators/Http/Pagination'
+import { <%= namePascal %>Service } from 'app/Services/Api/<%= namePascal %>Service'
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
+import { JoifulValidationPipe } from 'app/Pipes/JoifulValidationPipe'
+import { PaginationContract } from '@secjs/core/contracts/PaginationContract'
+
+@ApiTags('<%= namePascal %>')
+@Controller('<%= namePluralCamel %>')
+export class <%= namePascal %>Controller {
+  @Inject(<%= namePascal %>Service)
+  private <%= nameCamel %>Service: <%= namePascal %>Service
+
+  @Get()
+  @ApiQuery({ name: 'limit', allowEmptyValue: true })
+  @ApiQuery({ name: 'skip', allowEmptyValue: true })
+  async index(
+    @Query() queries: any,
+    @Pagination() pagination: PaginationContract,
+  ) {
+    return this.<%= nameCamel %>Service.findAll(pagination, queries)
+  }
+
+  @Post()
+  async store(@Body(JoifulValidationPipe) body: Create<%= namePascal %>Validator) {
+    return this.<%= nameCamel %>Service.createOne(body)
+  }
+
+  @Get('/:id')
+  @ApiParam({ name: 'id' })
+  async show(@Query() queries: any, @Param() params: any) {
+    return this.<%= nameCamel %>Service.findOne(params.id, queries)
+  }
+
+  @Put('/:id')
+  @ApiParam({ name: 'id' })
+  async update(
+    @Param() params: any,
+    @Body(JoifulValidationPipe) body: Update<%= namePascal %>Validator,
+  ) {
+    return this.<%= nameCamel %>Service.updateOne(params.id, body)
+  }
+
+  @Delete('/:id')
+  @ApiParam({ name: 'id' })
+  async delete(@Param() params: any) {
+    return this.<%= nameCamel %>Service.deleteOne(params.id)
+  }
+}

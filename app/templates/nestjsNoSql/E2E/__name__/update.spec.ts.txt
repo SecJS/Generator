@@ -2,43 +2,40 @@ import 'start/env'
 import Log from 'start/debug'
 import * as request from 'supertest'
 
-import { dbPayload } from './constants'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
+import { dbPayload, updatePayload } from './constants'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
-import { IdentityCollection } from 'app/Services/Collections/IdentityCollection'
 
-describe('\n[E2E] <%= namePascal %> 🔍', () => {
-  it('should return one <%= nameCamel %>', async () => {
+describe('\n[E2E] <%= namePascal %> 🛠', () => {
+  it('should update one <%= nameCamel %>', async () => {
     const <%= nameCamel %> = await <%= nameCamel %>Repository.storeOne(dbPayload)
 
     const status = 200
-    const method = 'GET'
+    const method = 'PUT'
     const code = 'RESPONSE'
     const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
 
     const { body } = await request(app.server.getHttpServer())
-      .get(path)
-      .set('Authorization', `Bearer ${accessToken}`)
+      .put(path)
+      .send(updatePayload)
       .expect(status)
 
     expect(body.code).toBe(code)
     expect(body.path).toBe(path)
     expect(body.method).toBe(method)
     expect(body.status).toBe(status)
-    expect(body.data.id).toBeTruthy()
-    expect(body.data._id).toBeFalsy()
   })
 
   it('should throw a not found error', async () => {
     const status = 404
-    const method = 'GET'
+    const method = 'PUT'
     const code = 'Error'
     const path = '/<%= namePluralCamel %>/507f1f77bcf86cd799439011'
 
     const { body } = await request(app.server.getHttpServer())
-      .get(path)
-      .set('Authorization', `Bearer ${accessToken}`)
+      .put(path)
+      .send(updatePayload)
       .expect(404)
 
     expect(body.code).toBe(code)
@@ -54,14 +51,15 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
       },
     })
   })
+
+  // Implement app/Contract/Dtos/<%= namePascal %>Dto.ts
+  // Implement app/Validators/<%= namePascal %>Validator.ts
+  // And create tests to validate if the Validators are working well.
 })
 
 let app: App
 let database: Database
 let <%= nameCamel %>Repository: <%= namePascal %>Repository
-
-let accessToken: string
-let identityCollection: IdentityCollection
 
 beforeEach(async () => {
   Log.test(`Executing ${beforeEach.name}`)
@@ -70,13 +68,6 @@ beforeEach(async () => {
   database = new Database(app)
 
   <%= nameCamel %>Repository = database.getRepository(<%= namePascal %>Repository)
-  identityCollection = app.getInstance<IdentityCollection>(
-        IdentityCollection.name,
-      )
-
-    const { access_token } = await identityCollection.getUserToken()
-
-    accessToken = access_token
 })
 
 afterEach(async () => {

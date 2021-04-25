@@ -1,0 +1,12 @@
+// Use Joiful to valide inside <%= namePascal %>Validators
+// import * as Joiful from 'joiful'
+
+import { Create<%= namePascal %>Dto, Update<%= namePascal %>Dto } from 'app/Contracts/Dtos/<%= namePascal %>Dto'
+
+export class Create<%= namePascal %>Validator extends Create<%= namePascal %>Dto {
+  // Joi validations to create <%= namePascal %> in here
+}
+
+export class Update<%= namePascal %>Validator extends Update<%= namePascal %>Dto {
+  // Joi validations to update <%= namePascal %> in here
+}

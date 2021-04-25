@@ -17,7 +17,6 @@ describe('\n[E2E] <%= namePascal %> 🧱', () => {
     const { body } = await request(app.server.getHttpServer())
       .post(path)
       .send(storePayload)
-      .set('Authorization', `Bearer ${accessToken}`)
       .expect(status)
 
     expect(body.code).toBe(code)
@@ -34,22 +33,11 @@ describe('\n[E2E] <%= namePascal %> 🧱', () => {
 let app: App
 let database: Database
 
-let accessToken: string
-let identityCollection: IdentityCollection
-
 beforeEach(async () => {
   Log.test(`Executing ${beforeEach.name}`)
 
   app = await new App([AppModule]).initApp()
   database = new Database(app)
-
-  identityCollection = app.getInstance<IdentityCollection>(
-        IdentityCollection.name,
-      )
-
-    const { access_token } = await identityCollection.getUserToken()
-
-    accessToken = access_token
 })
 
 afterEach(async () => {

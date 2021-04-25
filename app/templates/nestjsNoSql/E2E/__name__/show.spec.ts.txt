@@ -6,38 +6,35 @@ import { dbPayload } from './constants'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
-import { IdentityCollection } from 'app/Services/Collections/IdentityCollection'
-
-describe('\n[E2E] <%= namePascal %> ❌', () => {
-  it('should delete one <%= nameCamel %>', async () => {
+describe('\n[E2E] <%= namePascal %> 🔍', () => {
+  it('should return one <%= nameCamel %>', async () => {
     const <%= nameCamel %> = await <%= nameCamel %>Repository.storeOne(dbPayload)
 
     const status = 200
-    const method = 'DELETE'
+    const method = 'GET'
     const code = 'RESPONSE'
     const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
 
     const { body } = await request(app.server.getHttpServer())
-      .delete(path)
-      .set('Authorization', `Bearer ${accessToken}`)
+      .get(path)
       .expect(status)
 
     expect(body.code).toBe(code)
     expect(body.path).toBe(path)
     expect(body.method).toBe(method)
     expect(body.status).toBe(status)
-    expect(body.data.deletedAt).toBeTruthy()
+    expect(body.data.id).toBeTruthy()
+    expect(body.data._id).toBeFalsy()
   })
 
   it('should throw a not found error', async () => {
     const status = 404
-    const method = 'DELETE'
+    const method = 'GET'
     const code = 'Error'
     const path = '/<%= namePluralCamel %>/507f1f77bcf86cd799439011'
 
     const { body } = await request(app.server.getHttpServer())
-      .delete(path)
-      .set('Authorization', `Bearer ${accessToken}`)
+      .get(path)
       .expect(404)
 
     expect(body.code).toBe(code)
@@ -59,9 +56,6 @@ let app: App
 let database: Database
 let <%= nameCamel %>Repository: <%= namePascal %>Repository
 
-let accessToken: string
-let identityCollection: IdentityCollection
-
 beforeEach(async () => {
   Log.test(`Executing ${beforeEach.name}`)
 
@@ -69,13 +63,6 @@ beforeEach(async () => {
   database = new Database(app)
 
   <%= nameCamel %>Repository = database.getRepository(<%= namePascal %>Repository)
-  identityCollection = app.getInstance<IdentityCollection>(
-        IdentityCollection.name,
-      )
-
-    const { access_token } = await identityCollection.getUserToken()
-
-    accessToken = access_token
 })
 
 afterEach(async () => {

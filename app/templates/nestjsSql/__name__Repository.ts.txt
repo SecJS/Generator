@@ -1,0 +1,8 @@
+import { <%= namePascal %> } from 'app/Models/<%= namePascal %>'
+import { Injectable } from '@nestjs/common'
+import { TypeOrmRepository } from '@secjs/core/base/Repositories/TypeOrmRepository'
+
+@Injectable()
+export class <%= namePascal %>Repository extends TypeOrmRepository<<%= namePascal %>> {
+  protected Model = <%= namePascal %>.name
+}

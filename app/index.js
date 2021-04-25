@@ -40,7 +40,10 @@ class SecGenerator extends Generator {
         type: 'list',
         name: 'framework',
         message: 'Select your framework:',
-        choices: [{ name: 'NestJS', value: 'nestjs' }],
+        choices: [
+          { name: 'NestJS SQL', value: 'nestjsSql' },
+          { name: 'NestJS NoSQL', value: 'nestjsNoSql' },
+        ],
       },
     ])
   }
