@@ -1,12 +1,12 @@
 import {
-  ApiRequestContract,
-  PaginationContract,
-} from '@secjs/contracts'
+  Create<%= namePascal %>Dto,
+  Update<%= namePascal %>Dto,
+} from 'app/Contracts/Dtos/<%= namePascal %>'
 
 import { Options } from 'app/Decorators/Services/Options'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
-import { Create<%= namePascal %>Dto, Update<%= namePascal %>Dto } from 'app/Contracts/Dtos/<%= namePascal %>Dto'
+import { ApiRequestContract, PaginationContract } from '@secjs/contracts'
 
 @Injectable()
 export class <%= namePascal %>Service {
