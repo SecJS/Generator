@@ -33,9 +33,9 @@ export class <%= namePascal %>Controller {
   @ApiQuery({ name: 'skip', allowEmptyValue: true })
   async index(
     @Query() queries: any,
-    @Pagination() pagination: PaginationContract,
+    @Pagination() paginate: PaginationContract,
   ) {
-    return this.<%= nameCamel %>Service.findAll(pagination, queries)
+    return this.<%= nameCamel %>Service.findAll(paginate, queries)
   }
 
   @Post()

@@ -1,7 +1,6 @@
-import 'start/env'
-import Log from 'start/debug'
 import * as request from 'supertest'
 
+import { Debug } from '@secjs/logger'
 import { dbPayload } from './constants'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
@@ -57,7 +56,7 @@ let database: Database
 let <%= nameCamel %>Repository: <%= namePascal %>Repository
 
 beforeEach(async () => {
-  Log.test(`Executing ${beforeEach.name}`)
+  Debug(`Executing ${beforeEach.name}`)
 
   app = await new App([AppModule]).initApp()
   database = new Database(app)
@@ -66,7 +65,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  Log.test(`Executing ${afterEach.name}`)
+  Debug(`Executing ${afterEach.name}`)
 
   await database.dropDatabase()
   await database.closeConnection()

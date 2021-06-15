@@ -1,13 +1,11 @@
-const dbPayload = {
+export const dbPayload = {
   // Payload necessary to create <%= namePascal %> in Database
 }
 
-const storePayload = {
+export const storePayload = {
   // Payload necessary to create <%= namePascal %> in using POST
 }
 
-const updatePayload = {
+export const updatePayload = {
   // Payload necessary to create <%= namePascal %> in using PUT
 }
-
-export { dbPayload, storePayload, updatePayload }

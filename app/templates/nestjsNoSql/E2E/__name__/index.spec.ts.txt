@@ -27,9 +27,9 @@ describe('\n[E2E] <%= namePascal %> 🗒', () => {
     expect(body.data.data[0].id).toBeTruthy()
     expect(body.data.data[0]._id).toBeFalsy()
     expect(body.data.data).toHaveLength(2)
-    expect(body.data.pagination.skip).toBe(0)
-    expect(body.data.pagination.limit).toBe(10)
-    expect(body.data.pagination.total).toBeTruthy()
+    expect(body.data.paginate.skip).toBe(0)
+    expect(body.data.paginate.limit).toBe(10)
+    expect(body.data.paginate.total).toBeTruthy()
   })
 })
 

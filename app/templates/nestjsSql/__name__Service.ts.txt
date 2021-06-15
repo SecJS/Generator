@@ -1,8 +1,9 @@
 import {
   ApiRequestContract,
   PaginationContract,
-} from '@secjs/core/contracts'
+} from '@secjs/contracts'
 
+import { Options } from 'app/Decorators/Services/Options'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
 import { Create<%= namePascal %>Dto, Update<%= namePascal %>Dto } from 'app/Contracts/Dtos/<%= namePascal %>Dto'
@@ -12,19 +13,13 @@ export class <%= namePascal %>Service {
   @Inject(<%= namePascal %>Repository)
   private <%= nameCamel %>Repository: <%= namePascal %>Repository
 
-  get apiRequest(): ApiRequestContract {
-    return {
-      where: [],
-      orderBy: [],
-      includes: [],
-    }
+  @Options()
+  async findAll(paginate: PaginationContract, options?: ApiRequestContract) {
+    return this.<%= nameCamel %>Repository.getAll(paginate, options)
   }
 
-  async findAll(pagination: PaginationContract, options = this.apiRequest) {
-    return this.<%= nameCamel %>Repository.getAll(pagination, options)
-  }
-
-  async findOne(id: string, options = this.apiRequest) {
+  @Options()
+  async findOne(id: string, options?: ApiRequestContract) {
     const <%= nameCamel %> = await this.<%= nameCamel %>Repository.getOne(id, options)
 
     if (!<%= nameCamel %>) {

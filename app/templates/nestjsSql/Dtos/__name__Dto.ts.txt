@@ -1,10 +1,15 @@
-// Use ApiProperty() to show in swagger documentation the body payload
+import * as Joi from 'joi'
 // import { ApiProperty } from '@nestjs/swagger'
 
 export class Create<%= namePascal %>Dto {
+  // Schema validation
+  static schema = Joi.object({})
+
+  // @ApiProperty()
   // <%= namePascal %> props in here
 }
 
 export class Update<%= namePascal %>Dto {
+  // @ApiProperty()
   // <%= namePascal %> props in here
 }

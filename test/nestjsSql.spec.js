@@ -19,7 +19,6 @@ describe('\n NestJS SQL 😸', () => {
       './Foo/BarController.ts',
       './Foo/BarRepository.ts',
       './Foo/BarService.ts',
-      './Foo/BarValidator.ts',
       './Foo/Dtos/BarDto.ts',
       './Foo/E2E/Bar/constants.ts',
       './Foo/E2E/Bar/delete.spec.ts',

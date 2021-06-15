@@ -11,15 +11,16 @@ import {
 } from '@nestjs/common'
 
 import {
-  Create<%= namePascal %>Validator,
-  Update<%= namePascal %>Validator,
-} from 'app/Validators/<%= namePascal %>Validator'
+  Create<%= namePascal %>Dto,
+  Update<%= namePascal %>Dto,
+} from 'app/Contracts/Dtos/<%= namePascal %>Dto'
 
-import { Pagination } from 'app/Decorators/Http/Pagination'
+import { PaginationContract } from '@secjs/contracts'
+import { PipeValidator } from 'app/Pipes/PipeValidator'
 import { <%= namePascal %>Service } from 'app/Services/Api/<%= namePascal %>Service'
+import { QueryParamsPipe } from 'app/Pipes/QueryParamsPipe'
+import { Pagination } from 'app/Decorators/Http/Pagination'
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
-import { JoifulValidationPipe } from 'app/Pipes/JoifulValidationPipe'
-import { PaginationContract } from '@secjs/core/contracts/PaginationContract'
 
 @ApiTags('<%= namePascal %>')
 @Controller('<%= namePluralCamel %>')
@@ -31,20 +32,20 @@ export class <%= namePascal %>Controller {
   @ApiQuery({ name: 'limit', allowEmptyValue: true })
   @ApiQuery({ name: 'skip', allowEmptyValue: true })
   async index(
-    @Query() queries: any,
-    @Pagination() pagination: PaginationContract,
+    @Query(QueryParamsPipe) queries: any,
+    @Pagination() paginate: PaginationContract,
   ) {
-    return this.<%= nameCamel %>Service.findAll(pagination, queries)
+    return this.<%= nameCamel %>Service.findAll(paginate, queries)
   }
 
   @Post()
-  async store(@Body(JoifulValidationPipe) body: Create<%= namePascal %>Validator) {
+  async store(@Body(PipeValidator) body: Create<%= namePascal %>Dto) {
     return this.<%= nameCamel %>Service.createOne(body)
   }
 
   @Get('/:id')
   @ApiParam({ name: 'id' })
-  async show(@Query() queries: any, @Param() params: any) {
+  async show(@Query(QueryParamsPipe) queries: any, @Param() params: any) {
     return this.<%= nameCamel %>Service.findOne(params.id, queries)
   }
 
@@ -52,7 +53,7 @@ export class <%= namePascal %>Controller {
   @ApiParam({ name: 'id' })
   async update(
     @Param() params: any,
-    @Body(JoifulValidationPipe) body: Update<%= namePascal %>Validator,
+    @Body(PipeValidator) body: Update<%= namePascal %>Dto,
   ) {
     return this.<%= nameCamel %>Service.updateOne(params.id, body)
   }

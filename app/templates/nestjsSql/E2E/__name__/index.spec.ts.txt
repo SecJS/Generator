@@ -1,7 +1,6 @@
-import 'start/env'
-import Log from 'start/debug'
 import * as request from 'supertest'
 
+import { Debug } from '@secjs/logger'
 import { dbPayload } from './constants'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
@@ -27,9 +26,9 @@ describe('\n[E2E] <%= namePascal %> 🗒', () => {
     expect(body.data.data[0].id).toBeTruthy()
     expect(body.data.data[0]._id).toBeFalsy()
     expect(body.data.data).toHaveLength(2)
-    expect(body.data.pagination.skip).toBe(0)
-    expect(body.data.pagination.limit).toBe(10)
-    expect(body.data.pagination.total).toBeTruthy()
+    expect(body.data.paginate.skip).toBe(0)
+    expect(body.data.paginate.limit).toBe(10)
+    expect(body.data.paginate.total).toBeTruthy()
   })
 })
 
@@ -38,7 +37,7 @@ let database: Database
 let <%= nameCamel %>Repository: <%= namePascal %>Repository
 
 beforeEach(async () => {
-  Log.test(`Executing ${beforeEach.name}`)
+  Debug(`Executing ${beforeEach.name}`)
 
   app = await new App([AppModule]).initApp()
   database = new Database(app)
@@ -47,7 +46,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  Log.test(`Executing ${afterEach.name}`)
+  Debug(`Executing ${afterEach.name}`)
 
   await database.dropDatabase()
   await database.closeConnection()

@@ -7,9 +7,19 @@ export class <%= namePascal %>  {
 
   // <%= namePascal %> props goes in here
 
-  @Column()
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date
+
+  @Column({ name: 'deleted_at' })
   deletedAt: Date
 
   @Column({ enum: ['pendent', 'active'] })
   status: string
+
+  /*
+   * Relations
+   */
 }

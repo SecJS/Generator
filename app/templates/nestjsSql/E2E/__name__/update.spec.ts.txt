@@ -1,12 +1,10 @@
-import 'start/env'
-import Log from 'start/debug'
 import * as request from 'supertest'
 
+import { Debug } from '@secjs/logger'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
 import { dbPayload, updatePayload } from './constants'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
-import { IdentityCollection } from 'app/Services/Collections/IdentityCollection'
 
 describe('\n[E2E] <%= namePascal %> 🛠', () => {
   it('should update one <%= nameCamel %>', async () => {
@@ -53,9 +51,8 @@ describe('\n[E2E] <%= namePascal %> 🛠', () => {
     })
   })
 
-  // Implement app/Contract/Dtos/<%= namePascal %>Dto.ts
-  // Implement app/Validators/<%= namePascal %>Validator.ts
-  // And create tests to validate if the Validators are working well.
+  // Implement all properties in app/Contract/Dtos/<%= namePascal %>Dto.ts
+  // And create tests to validate if the schema validator are working well.
 })
 
 let app: App
@@ -63,7 +60,7 @@ let database: Database
 let <%= nameCamel %>Repository: <%= namePascal %>Repository
 
 beforeEach(async () => {
-  Log.test(`Executing ${beforeEach.name}`)
+  Debug(`Executing ${beforeEach.name}`)
 
   app = await new App([AppModule]).initApp()
   database = new Database(app)
@@ -72,7 +69,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  Log.test(`Executing ${afterEach.name}`)
+  Debug(`Executing ${afterEach.name}`)
 
   await database.dropDatabase()
   await database.closeConnection()

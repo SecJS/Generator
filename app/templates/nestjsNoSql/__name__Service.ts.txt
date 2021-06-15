@@ -20,8 +20,8 @@ export class <%= namePascal %>Service {
     }
   }
 
-  async findAll(pagination: PaginationContract, options = this.apiRequest) {
-    return this.<%= nameCamel %>Repository.getAll(pagination, options)
+  async findAll(paginate: PaginationContract, options = this.apiRequest) {
+    return this.<%= nameCamel %>Repository.getAll(paginate, options)
   }
 
   async findOne(id: string, options = this.apiRequest) {
