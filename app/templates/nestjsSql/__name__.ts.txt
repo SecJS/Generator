@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class <%= namePascal %>  {
+export class <%= namePascal %> {
   @PrimaryGeneratedColumn()
   id: string
 
@@ -14,7 +14,7 @@ export class <%= namePascal %>  {
   updatedAt: Date
 
   @Column({ name: 'deleted_at' })
-  deletedAt: Date
+  deletedAt?: Date
 
   @Column({ enum: ['pendent', 'active'] })
   status: string

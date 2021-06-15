@@ -4,5 +4,8 @@ import { TypeOrmRepository } from '@secjs/base/repositories/TypeOrmRepository'
 
 @Injectable()
 export class <%= namePascal %>Repository extends TypeOrmRepository<<%= namePascal %>> {
+  protected wheres: []
+  protected relations: []
+
   protected Model = <%= namePascal %>.name
 }
