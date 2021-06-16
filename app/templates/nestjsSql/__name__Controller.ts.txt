@@ -30,7 +30,7 @@ export class <%= namePascal %>Controller {
 
   @Get()
   @ApiQuery({ name: 'limit', allowEmptyValue: true })
-  @ApiQuery({ name: 'skip', allowEmptyValue: true })
+  @ApiQuery({ name: 'page', allowEmptyValue: true })
   async index(
     @Query(QueryParamsPipe) queries: any,
     @Pagination() paginate: PaginationContract,
