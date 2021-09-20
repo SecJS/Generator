@@ -4,7 +4,6 @@
   "description": "🧬 Generator for any NodeJS Project or Framework",
   "main": "app/index.js",
   "scripts": {
-    "build": "tsc",
     "test": "jest --verbose",
     "test:debug": "DEBUG=* jest --verbose",
     "lint:fix": "eslint \"{app,utils,tests}/**/*.js\" --fix"
