@@ -1,0 +1,47 @@
+import {
+  Create<%= namePascal %>Dto,
+  Update<%= namePascal %>Dto,
+} from 'app/Contracts/Dtos/<%= namePascal %>Dto'
+
+import { Options } from 'app/Decorators/Services/Options'
+import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { ApiRequestContract, PaginationContract } from '@secjs/contracts'
+
+@Injectable()
+export class <%= namePascal %>Service {
+  @Inject(<%= namePascal %>Repository)
+  private <%= nameCamel %>Repository: <%= namePascal %>Repository
+
+  @Options()
+  async findAll(paginate: PaginationContract, options?: ApiRequestContract) {
+    return this.<%= nameCamel %>Repository.getAll(paginate, options)
+  }
+
+  @Options()
+  async findOne(id: string, options?: ApiRequestContract) {
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.getOne(id, options)
+
+    if (!<%= nameCamel %>) {
+      throw new NotFoundException('NOT_FOUND_<%= nameUp %>')
+    }
+
+    return <%= nameCamel %>
+  }
+
+  async createOne(dto: Create<%= namePascal %>Dto) {
+    return this.<%= nameCamel %>Repository.storeOne(dto)
+  }
+
+  async updateOne(id: string, dto: Update<%= namePascal %>Dto) {
+    const <%= nameCamel %> = await this.findOne(id)
+
+    return this.<%= nameCamel %>Repository.updateOne(<%= nameCamel %>, dto)
+  }
+
+  async deleteOne(id: string) {
+    const <%= nameCamel %> = await this.findOne(id)
+
+    return this.<%= nameCamel %>Repository.deleteOne(<%= nameCamel %>)
+  }
+}

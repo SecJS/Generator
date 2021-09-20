@@ -1,0 +1,93 @@
+import * as request from 'supertest'
+
+import { Debug } from '@secjs/logger'
+import { AppModule } from 'app/AppModule'
+import { App, Database } from 'test/Utils'
+import { <%= namePascal %>Seeder } from 'database/seeds/<%= namePascal %>Seeder'
+
+describe('\n[E2E] <%= namePascal %> 🛠', () => {
+  it('should update one <%= nameCamel %>', async () => {
+    const <%= nameCamel %> = await <%= nameCamel %>Seeder.seedOne()
+
+    const status = 200
+    const method = 'PUT'
+    const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
+
+    const updateBlueprint = <%= nameCamel %>Seeder.updateBlueprint()
+
+    const { body } = await request(app.server.getHttpServer())
+      .put(path)
+      .send(updateBlueprint)
+      .expect(status)
+
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.data.id).toBe(<%= nameCamel %>.id)
+  })
+
+  it('should throw a not found error when can not find <%= nameCamel %>', async () => {
+    const status = 404
+    const method = 'PUT'
+    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011`
+
+    const updateBlueprint = <%= nameCamel %>Seeder.blueprint()
+
+    const { body } = await request(app.server.getHttpServer())
+      .put(path)
+      .send(updateBlueprint)
+      .expect(status)
+
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.error).toEqual({
+      name: 'NotFoundException',
+      message: {
+        error: 'Not Found',
+        message: 'NOT_FOUND_<%= nameUp %>',
+        statusCode: status,
+      },
+    })
+  })
+
+  // Implement all properties in app/Contracts/Dtos/<%= namePascal %>Dto.ts
+  // And create tests to validate if the schema validator are working well.
+
+  // it('should throw validation errors when trying to update a <%= nameCamel %> with validation errors', async () => {
+  //   const status = 400
+  //   const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011`
+  //
+  //   const { body } = await request(app.server.getHttpServer())
+  //     .put(path)
+  //     .send({ name: true })
+  //     .expect(status)
+  //
+  //   expect(body.status).toBe(status)
+  //   expect(body.error.message).toStrictEqual({
+  //     name: 'Validation Error',
+  //     statusCode: status,
+  //     validations: ['"name" must be a string'],
+  //   })
+  // })
+})
+
+let app: App
+let database: Database
+let <%= nameCamel %>Seeder: <%= namePascal %>Seeder
+
+beforeEach(async () => {
+  Debug(`Executing ${beforeEach.name}`, 'api:test')
+
+  app = await new App([AppModule]).initApp()
+  database = new Database(app)
+
+  <%= nameCamel %>Seeder = app.getInstance(<%= namePascal %>Seeder)
+})
+
+afterEach(async () => {
+  Debug(`Executing ${afterEach.name}`, 'api:test')
+
+  await database.truncate()
+  await database.truncateCache()
+  await app.closeApp()
+})
+

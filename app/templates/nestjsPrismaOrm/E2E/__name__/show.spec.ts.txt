@@ -1,0 +1,109 @@
+import * as request from 'supertest'
+
+import { Debug } from '@secjs/logger'
+import { AppModule } from 'app/AppModule'
+import { App, Database } from 'test/Utils'
+import { <%= namePascal %>Seeder } from 'database/seeds/<%= namePascal %>Seeder'
+
+describe('\n[E2E] <%= namePascal %> 🔍', () => {
+  it('should return one <%= nameCamel %>', async () => {
+    const <%= nameCamel %> = await <%= nameCamel %>Seeder.seedOne()
+
+    const status = 200
+    const method = 'GET'
+    const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
+
+    const { body } = await request(app.server.getHttpServer())
+      .get(path)
+      .expect(status)
+
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.data.id).toBe(<%= nameCamel %>.id)
+  })
+
+  it('should throw a not found error when can not find <%= nameCamel %>', async () => {
+    const status = 404
+    const method = 'GET'
+    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011`
+
+    const { body } = await request(app.server.getHttpServer())
+      .get(path)
+      .expect(status)
+
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.error).toEqual({
+      name: 'NotFoundException',
+      message: {
+        error: 'Not Found',
+        message: 'NOT_FOUND_<%= nameUp %>',
+        statusCode: status,
+      },
+    })
+  })
+
+  it('should throw an error when trying to filter by values not authorized in the model <%= nameCamel %>', async () => {
+    const status = 400
+    const method = 'GET'
+    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011?*testetwoe=hello`
+
+    const { body } = await request(app.server.getHttpServer())
+      .get(path)
+      .expect(status)
+
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.error).toEqual({
+      name: 'REPOSITORY_WHERE_ERROR',
+      message: {
+        error: 'Bad Request',
+        message: 'It is not possible to filter by testetwoe',
+        statusCode: status,
+      },
+    })
+  })
+
+  it('should throw an error when trying to include relations not authorized in the model <%= nameCamel %>', async () => {
+    const status = 400
+    const method = 'GET'
+    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011?_testetwoe=[]`
+
+    const { body } = await request(app.server.getHttpServer())
+      .get(path)
+      .expect(status)
+
+    expect(body.method).toBe(method)
+    expect(body.status).toBe(status)
+    expect(body.error).toEqual({
+      name: 'REPOSITORY_RELATION_ERROR',
+      message: {
+        error: 'Bad Request',
+        message: 'It is not possible to include testetwoe relation',
+        statusCode: status,
+      },
+    })
+  })
+})
+
+let app: App
+let database: Database
+let <%= nameCamel %>Seeder: <%= namePascal %>Seeder
+
+beforeEach(async () => {
+  Debug(`Executing ${beforeEach.name}`, 'api:test')
+
+  app = await new App([AppModule]).initApp()
+  database = new Database(app)
+
+  <%= nameCamel %>Seeder = app.getInstance(<%= namePascal %>Seeder)
+})
+
+afterEach(async () => {
+  Debug(`Executing ${afterEach.name}`, 'api:test')
+
+  await database.truncate()
+  await database.truncateCache()
+  await app.closeApp()
+})
+

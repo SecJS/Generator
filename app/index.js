@@ -41,8 +41,9 @@ class SecGenerator extends Generator {
         name: 'framework',
         message: 'Select your framework:',
         choices: [
-          { name: 'NestJS SQL', value: 'nestjsSql' },
-          { name: 'NestJS NoSQL', value: 'nestjsNoSql' },
+          { name: 'NestJS TypeORM', value: 'nestjsTypeOrm' },
+          { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
+          { name: 'NestJS PrismaORM', value: 'nestjsPrismaOrm' },
         ],
       },
     ])
@@ -56,7 +57,7 @@ class SecGenerator extends Generator {
       this.fs.copyTpl(
         this.templatePath(`${framework}/${f.src}`),
         this.destinationPath(`${this.variables.path}/${f.dist}`),
-        this.variables
+        this.variables,
       )
     }
   }
@@ -65,9 +66,9 @@ class SecGenerator extends Generator {
     this.log(
       yosay(
         `Copy paste the ${chalk.red(
-          this.variables.namePascal
-        )} files to the right folders`
-      )
+          this.variables.namePascal,
+        )} files to the right folders`,
+      ),
     )
   }
 }
