@@ -1,0 +1,31 @@
+name: CI Generator
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Download dependencies
+        run: npm install
+
+      - name: Verify project lint and try to fix it
+        run: npm run lint:fix
+
+      - name: Run the tests from project
+        run: npm run test
