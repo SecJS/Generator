@@ -44,7 +44,7 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
   })
 
   it('should throw an error when trying to filter by values not authorized in the model <%= nameCamel %>', async () => {
-    const status = 400
+    const status = 422
     const method = 'GET'
     const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011?*testetwoe=hello`
 
@@ -55,9 +55,10 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
     expect(body.method).toBe(method)
     expect(body.status).toBe(status)
     expect(body.error).toEqual({
-      name: 'REPOSITORY_WHERE_ERROR',
+      isSecJsException: true,
+      name: 'UnprocessableEntityException',
       message: {
-        error: 'Bad Request',
+        error: 'Unprocessable Entity Error',
         message: 'It is not possible to filter by testetwoe',
         statusCode: status,
       },
@@ -65,7 +66,7 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
   })
 
   it('should throw an error when trying to include relations not authorized in the model <%= nameCamel %>', async () => {
-    const status = 400
+    const status = 422
     const method = 'GET'
     const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011?_testetwoe=[]`
 
@@ -76,9 +77,10 @@ describe('\n[E2E] <%= namePascal %> 🔍', () => {
     expect(body.method).toBe(method)
     expect(body.status).toBe(status)
     expect(body.error).toEqual({
-      name: 'REPOSITORY_RELATION_ERROR',
+      isSecJsException: true,
+      name: 'UnprocessableEntityException',
       message: {
-        error: 'Bad Request',
+        error: 'Unprocessable Entity Error',
         message: 'It is not possible to include testetwoe relation',
         statusCode: status,
       },
@@ -106,4 +108,3 @@ afterEach(async () => {
   await database.truncateCache()
   await app.closeApp()
 })
-
