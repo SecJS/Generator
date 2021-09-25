@@ -32,12 +32,6 @@ Then generate your files:
 yo secjs Foo --path=./Bar
 ```
 
-or
-
-```bash
-yo generator-secjs Customer --path=./Customer
-```
-
 ## Next Steps
 
 - [x] Generate code by Framework/Language
