@@ -1,0 +1,19 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\<%= namePascal %>;
+use Illuminate\Database\Seeder;
+
+class <%= namePascal %>Seeder extends Seeder
+{
+    /**
+     * Run the database seeders.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        <%= namePascal %>::factory(1)->create();
+    }
+}

@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Txsoura\Core\Http\Requests\CoreRequest;
+
+class <%= namePascal %>StoreRequest extends CoreRequest
+{
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        return $this->replace([
+            //
+        ]);
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            //
+        ];
+    }
+}

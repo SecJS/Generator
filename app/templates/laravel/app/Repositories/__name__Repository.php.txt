@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\<%= namePascal %>;
+use Txsoura\Core\Repositories\CoreRepository;
+
+class <%= namePascal %>Repository extends CoreRepository
+{
+    /**
+     * Allow model relations to use in include
+     * @var array
+     */
+    protected $possibleRelationships = [];
+
+    /**
+     * Allowed model columns to use in conditional query
+     * @var array
+     */
+    protected $allow_where = array();
+
+    /**
+     * Allowed model columns to use in sort
+     * @var array
+     */
+    protected $allow_order = array('created_at');
+
+    /**
+     * Allowed model columns to use in query search
+     * @var array
+     */
+    protected $allow_like = array();
+
+    /**
+     * Allowed model columns to use in filter by date
+     * @var array
+     */
+    protected $allow_between_dates = array('created_at');
+
+    /**
+     * Allowed model columns to use in filter by value
+     * @var array
+     */
+    protected $allow_between_values = array();
+
+    protected function model(): string
+    {
+        return <%= namePascal %>::class;
+    }
+}
