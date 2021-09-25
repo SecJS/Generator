@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Services;
+
+use App\Http\Requests\<%= namePascal %>StoreRequest;
+use App\Http\Requests\<%= namePascal %>UpdateRequest;
+use App\Models\<%= namePascal %>;
+use App\Repositories\<%= namePascal %>Repository;
+use Txsoura\Core\Services\CoreService;
+use Txsoura\Core\Services\Traits\CRUDMethodsService;
+use Txsoura\Core\Services\Traits\SoftDeleteMethodsService;
+
+class <%= namePascal %>Service extends CoreService
+{
+    use CRUDMethodsService, SoftDeleteMethodsService;
+
+    protected $storeRequest = <%= namePascal %>StoreRequest::class;
+    protected $updateRequest = <%= namePascal %>UpdateRequest::class;
+
+    /**
+     * @var <%= namePascal %>Repository
+     */
+    protected $repository;
+
+    /**
+     * <%= namePascal %>Service constructor.
+     * @param <%= namePascal %>Repository $repository
+     */
+    public function __construct(<%= namePascal %>Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * Model class for crud.
+     *
+     * @return string
+     */
+    protected function model(): string
+    {
+        return <%= namePascal %>::class;
+    }
+}
