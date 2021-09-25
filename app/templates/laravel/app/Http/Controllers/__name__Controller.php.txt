@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Resources\<%= namePascal %>Resource;
+use App\Repositories\<%= namePascal %>Repository;
+use App\Services\<%= namePascal %>Service;
+use Txsoura\Core\Http\Controllers\Traits\CRUDMethodsController;
+use Txsoura\Core\Http\Controllers\Traits\SoftDeleteMethodsController;
+
+class <%= namePascal %>Controller extends Controller
+{
+    use CRUDMethodsController, SoftDeleteMethodsController;
+
+    /**
+     * @var <%= namePascal %>Repository
+     */
+    protected $repository;
+
+    /**
+     * @var <%= namePascal %>Resource
+     */
+    protected $resource = <%= namePascal %>Resource::class;
+
+    /**
+     * @var <%= namePascal %>Service
+     */
+    protected $service;
+
+    /**
+     * <%= namePascal %>Controller constructor.
+     */
+    public function __construct(<%= namePascal %>Service $service, <%= namePascal %>Repository $repository)
+    {
+        $this->service = $service;
+        $this->repository = $repository;
+    }
+}
