@@ -41,6 +41,7 @@ class SecGenerator extends Generator {
         name: 'framework',
         message: 'Select your framework:',
         choices: [
+          { name: 'Laravel', value: 'laravel' },
           { name: 'NestJS TypeORM', value: 'nestjsTypeOrm' },
           { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
           { name: 'NestJS PrismaORM', value: 'nestjsPrismaOrm' },
