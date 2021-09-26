@@ -15,11 +15,12 @@ describe('\n NestJS PrismaORM 😸', () => {
 
   it('should create all files from resource Bar in folder Foo', () => {
     assert.file([
+      './Foo/BarSeeder.ts',
+      './Foo/BarService.ts',
+      './Foo/Dtos/BarDto.ts',
+      './Foo/BarResource.ts',
       './Foo/BarController.ts',
       './Foo/BarRepository.ts',
-      './Foo/BarService.ts',
-      './Foo/BarSeeder.ts',
-      './Foo/Dtos/BarDto.ts',
       './Foo/E2E/Bar/delete.spec.ts',
       './Foo/E2E/Bar/index.spec.ts',
       './Foo/E2E/Bar/show.spec.ts',
