@@ -1,0 +1,23 @@
+import { <%= namePascal %>Document } from 'app/Schemas/<%= namePascal %>'
+
+export interface <%= namePascal %>Json {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+}
+
+export class <%= namePascal %>Resource {
+   toJson(model: <%= namePascal %>Document): <%= namePascal %>Json {
+      return {
+        id: model._id.toString(),
+        createdAt: model.createdAt,
+        updatedAt: model.updatedAt,
+        deletedAt: model.deletedAt,
+      }
+   }
+
+   toArray(models: <%= namePascal %>Document): <%= namePascal %>Json[] {
+      return models.map(model => this.toJson(model))
+   }
+}

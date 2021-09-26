@@ -8,14 +8,3 @@ export class <%= namePascal %> {
 
 export type <%= namePascal %>Document = <%= namePascal %> & mongoose.Document
 export const <%= namePascal %>Schema = SchemaFactory.createForClass(<%= namePascal %>)
-
-<%= namePascal %>Schema.methods.toJSON = function() {
-  const obj = this.toObject() as any
-
-  obj.id = obj._id
-
-  delete obj._id
-  delete obj.__v
-
-  return obj
-}
