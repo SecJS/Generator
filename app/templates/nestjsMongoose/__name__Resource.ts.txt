@@ -3,6 +3,7 @@ import { <%= namePascal %>Document } from 'app/Schemas/<%= namePascal %>'
 
 export interface <%= namePascal %>Json {
   id: string
+  status: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
