@@ -4,6 +4,7 @@ import {
 } from 'app/Contracts/Dtos/<%= namePascal %>Dto'
 
 import { Options } from 'app/Decorators/Services/Options'
+import { <%= namePascal %>Resource } from 'app/Resources/<%= namePascal %>Resource'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { ApiRequestContract, PaginationContract } from '@secjs/contracts'
@@ -13,13 +14,7 @@ export class <%= namePascal %>Service {
   @Inject(<%= namePascal %>Repository)
   private <%= nameCamel %>Repository: <%= namePascal %>Repository
 
-  @Options()
-  async findAll(paginate: PaginationContract, options?: ApiRequestContract) {
-    return this.<%= nameCamel %>Repository.getAll(paginate, options)
-  }
-
-  @Options()
-  async findOne(id: string, options?: ApiRequestContract) {
+  async findOneAndValidate(id: string, options?: ApiRequestContract) {
     const <%= nameCamel %> = await this.<%= nameCamel %>Repository.getOne(id, options)
 
     if (!<%= nameCamel %>) {
@@ -29,19 +24,39 @@ export class <%= namePascal %>Service {
     return <%= nameCamel %>
   }
 
+  @Options()
+  async findAll(paginate: PaginationContract, options?: ApiRequestContract) {
+    const { data, meta, links }: any = await this.<%= nameCamel %>Repository.getAll(paginate, options)
+
+    return {
+      meta,
+      links,
+      data: new <%= namePascal %>Resource().toArray(data),
+    }
+  }
+
+  @Options()
+  async findOne(id: string, options?: ApiRequestContract) {
+    const <%= nameCamel %> = await this.findOneAndValidate(id, options)
+
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
+  }
+
   async createOne(dto: Create<%= namePascal %>Dto) {
-    return this.<%= nameCamel %>Repository.storeOne(dto)
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.storeOne(dto)
+
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 
   async updateOne(id: string, dto: Update<%= namePascal %>Dto) {
-    const <%= nameCamel %> = await this.findOne(id)
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.updateOne(await this.findOneAndValidate(id), dto)
 
-    return this.<%= nameCamel %>Repository.updateOne(<%= nameCamel %>, dto)
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 
   async deleteOne(id: string) {
-    const <%= nameCamel %> = await this.findOne(id)
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.deleteOne(await this.findOneAndValidate(id))
 
-    return this.<%= nameCamel %>Repository.deleteOne(<%= nameCamel %>)
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 }

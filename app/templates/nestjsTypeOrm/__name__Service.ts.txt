@@ -4,6 +4,7 @@ import {
 } from 'app/Contracts/Dtos/<%= namePascal %>Dto'
 
 import { Options } from 'app/Decorators/Services/Options'
+import { <%= namePascal %>Resource } from 'app/Resources/<%= namePascal %>Resource'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { ApiRequestContract, PaginationContract } from '@secjs/contracts'
@@ -15,7 +16,13 @@ export class <%= namePascal %>Service {
 
   @Options()
   async findAll(paginate: PaginationContract, options?: ApiRequestContract) {
-    return this.<%= nameCamel %>Repository.getAll(paginate, options)
+    const { data, meta, links }: any = await this.<%= nameCamel %>Repository.getAll(paginate, options)
+
+    return {
+      meta,
+      links,
+      data: new <%= namePascal %>Resource().toArray(data),
+    }
   }
 
   @Options()
@@ -26,22 +33,24 @@ export class <%= namePascal %>Service {
       throw new NotFoundException('NOT_FOUND_<%= nameUp %>')
     }
 
-    return <%= nameCamel %>
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 
   async createOne(dto: Create<%= namePascal %>Dto) {
-    return this.<%= nameCamel %>Repository.storeOne(dto)
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.storeOne(dto)
+
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 
   async updateOne(id: string, dto: Update<%= namePascal %>Dto) {
-    const <%= nameCamel %> = await this.findOne(id)
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.updateOne(await this.findOne(id), dto)
 
-    return this.<%= nameCamel %>Repository.updateOne(<%= nameCamel %>, dto)
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 
   async deleteOne(id: string) {
-    const <%= nameCamel %> = await this.findOne(id)
+    const <%= nameCamel %> = await this.<%= nameCamel %>Repository.deleteOne(await this.findOne(id))
 
-    return this.<%= nameCamel %>Repository.deleteOne(<%= nameCamel %>)
+    return new <%= namePascal %>Resource().toJson(<%= nameCamel %>)
   }
 }

@@ -1,0 +1,35 @@
+// import { isArrayOfObjects } from '@secjs/utils'
+
+export interface <%= namePascal %>Json {
+  id: string
+  status: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+}
+
+export class <%= namePascal %>Resource {
+   toJson(model: any): <%= namePascal %>Json {
+     if (!model) return null
+
+     const json: <%= namePascal %>Json = {
+       id: model.id,
+       status: model.status,
+       createdAt: model.createdAt,
+       updatedAt: model.updatedAt,
+       deletedAt: model.deletedAt,
+     }
+
+     // if (model.relations && isArrayOfObjects(model.relations)) {
+     //   json.relations = new YourRelationResource().toArray(
+     //     model.relations,
+     //   )
+     // }
+
+     return json
+   }
+
+   toArray(models: any[]): <%= namePascal %>Json[] {
+      return models.map(model => this.toJson(model))
+   }
+}
