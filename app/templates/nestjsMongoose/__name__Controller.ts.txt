@@ -30,8 +30,8 @@ export class <%= namePascal %>Controller {
   private <%= nameCamel %>Service: <%= namePascal %>Service
 
   @Get()
-  @ApiQuery({ name: 'limit', allowEmptyValue: true })
   @ApiQuery({ name: 'page', allowEmptyValue: true })
+  @ApiQuery({ name: 'limit', allowEmptyValue: true })
   async index(
     @Query(QueryParamsPipe) queries: any,
     @Pagination() paginate: PaginationContract,

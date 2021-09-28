@@ -1,0 +1,25 @@
+import { Inject, Injectable } from '@nestjs/common'
+import { Factory } from '@secjs/base/database/Factory'
+import { <%= namePascal %>Seeder } from 'database/seeds/<%= namePascal %>Seeder'
+
+@Injectable()
+export class <%= namePascal %>Factory extends Factory<any> {
+  @Inject(<%= namePascal %>Seeder) protected seeder: <%= namePascal %>Seeder
+
+  blueprint = () => {
+    return {
+      example: this.faker.name.findName(),
+    }
+  }
+
+  fakeBlueprint = () => {
+    return {
+      id: this.faker.datatype.uuid(),
+      name: this.faker.name.findName(),
+      status: 'pendent',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+    }
+  }
+}

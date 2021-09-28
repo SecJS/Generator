@@ -1,75 +1,8 @@
-import { name } from 'faker'
 import { Inject, Injectable } from '@nestjs/common'
-import { <%= namePascal %> } from 'app/Models/<%= namePascal %>'
-import { ExtraParams } from 'database/decorators/ExtraParams'
+import { Seeder } from '@secjs/base/database/Seeder'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
 
 @Injectable()
-export class <%= namePascal %>Seeder {
-  @Inject(<%= namePascal %>Repository) private <%= nameCamel %>Repository: <%= namePascal %>Repository
-
-  @ExtraParams(1)
-  blueprint(extraParams?: any) {
-    return {
-      // Your model props here
-      name: name.findName(),
-      ...extraParams,
-    }
-  }
-
-  async seedOne(extraParams?: any): Promise<<%= namePascal %>> {
-    return this.<%= nameCamel %>Repository.storeOne(this.blueprint(extraParams))
-  }
-
-  async seedMany(number: number, extraParams?: any): Promise<<%= namePascal %>[]> {
-    const promises = []
-
-    for (let i = 1; i <= number; i++) {
-      promises.push(
-        this.<%= nameCamel %>Repository.storeOne(this.blueprint(extraParams)),
-      )
-    }
-
-    return Promise.all(promises)
-  }
-
-  @ExtraParams(1)
-  async seedOneDeleted(extraParams?: any): Promise<<%= namePascal %>> {
-    extraParams.deletedAt = new Date()
-
-    return this.<%= nameCamel %>Repository.storeOne(this.blueprint(extraParams))
-  }
-
-  @ExtraParams(2)
-  async seedManyDeleted(number: number, extraParams?: any): Promise<<%= namePascal %>[]> {
-    const promises = []
-
-    extraParams.deletedAt = new Date()
-
-    for (let i = 1; i <= number; i++) {
-      promises.push(
-        this.<%= nameCamel %>Repository.storeOne(this.blueprint(extraParams)),
-      )
-    }
-
-    return Promise.all(promises)
-  }
-
-  @ExtraParams(1)
-  storeBlueprint(extraParams?: any) {
-    return {
-      // Your model props here
-      name: name.findName(),
-      ...extraParams,
-    }
-  }
-
-  @ExtraParams(1)
-  updateBlueprint(extraParams?: any) {
-    return {
-      // Your model props here
-      name: name.findName(),
-      ...extraParams,
-    }
-  }
+export class <%= namePascal %>Seeder extends Seeder<any> {
+  @Inject(<%= namePascal %>Repository) protected repository: <%= namePascal %>Repository
 }
