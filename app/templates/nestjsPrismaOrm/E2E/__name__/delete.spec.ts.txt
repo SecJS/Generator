@@ -3,15 +3,15 @@ import * as request from 'supertest'
 import { Debug } from '@secjs/logger'
 import { AppModule } from 'app/AppModule'
 import { App, Database } from 'test/Utils'
-import { <%= namePascal %>Seeder } from 'database/seeds/<%= namePascal %>Seeder'
+import { <%= namePascal %>Factory } from 'database/factories/<%= namePascal %>Factory'
 
 describe('\n[E2E] <%= namePascal %> ❌', () => {
   it('should delete one <%= nameCamel %>', async () => {
-    const <%= nameCamel %> = await <%= nameCamel %>Seeder.seedOne()
+    const <%= nameCamel %> = await <%= nameCamel %>Factory.create()
 
     const status = 200
     const method = 'DELETE'
-    const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
+    const path = `/<%= nameCamel %>s/${<%= nameCamel %>.id}`
 
     const { body } = await request(app.server.getHttpServer())
       .delete(path)
@@ -26,7 +26,7 @@ describe('\n[E2E] <%= namePascal %> ❌', () => {
   it('should throw a not found error when can not find <%= nameCamel %>', async () => {
     const status = 404
     const method = 'DELETE'
-    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011`
+    const path = `/<%= nameCamel %>s/507f1f77bcf86cd799439011`
 
     const { body } = await request(app.server.getHttpServer())
       .delete(path)
@@ -35,10 +35,11 @@ describe('\n[E2E] <%= namePascal %> ❌', () => {
     expect(body.method).toBe(method)
     expect(body.status).toBe(status)
     expect(body.error).toEqual({
+      isSecJsException: true,
       name: 'NotFoundException',
       message: {
-        error: 'Not Found',
-        message: 'NOT_FOUND_<%= nameUp %>',
+        error: 'Not Found Error',
+        message: 'NOT_FOUND_PROJECT',
         statusCode: status,
       },
     })
@@ -47,7 +48,7 @@ describe('\n[E2E] <%= namePascal %> ❌', () => {
 
 let app: App
 let database: Database
-let <%= nameCamel %>Seeder: <%= namePascal %>Seeder
+let <%= nameCamel %>Factory: <%= namePascal %>Factory
 
 beforeEach(async () => {
   Debug(`Executing ${beforeEach.name}`, 'api:test')
@@ -55,7 +56,7 @@ beforeEach(async () => {
   app = await new App([AppModule]).initApp()
   database = new Database(app)
 
-  <%= nameCamel %>Seeder = app.getInstance(<%= namePascal %>Seeder)
+  <%= nameCamel %>Factory = app.getInstance(<%= namePascal %>Factory)
 })
 
 afterEach(async () => {

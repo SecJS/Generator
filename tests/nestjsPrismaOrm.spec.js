@@ -17,6 +17,7 @@ describe('\n NestJS PrismaORM 😸', () => {
     assert.file([
       './Foo/BarSeeder.ts',
       './Foo/BarService.ts',
+      './Foo/BarFactory.ts',
       './Foo/Dtos/BarDto.ts',
       './Foo/BarResource.ts',
       './Foo/BarController.ts',
