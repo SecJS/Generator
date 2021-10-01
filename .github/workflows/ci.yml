@@ -3,7 +3,7 @@ name: CI Generator
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build:
