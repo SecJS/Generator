@@ -1,0 +1,17 @@
+import { Injectable } from '@nestjs/common'
+import { Validator } from '@secjs/validator'
+
+@Injectable()
+export class <%= namePascal %>Validator extends Validator {
+  createSchema = () => {
+    return {
+      name: 'string|required',
+    }
+  }
+
+  updateSchema = () => {
+    return {
+      name: 'string',
+    }
+  }
+}

@@ -1,21 +1,17 @@
-import * as Joi from 'joi'
 // import { ApiProperty } from '@nestjs/swagger'
+import { <%= namePascal %>Validator } from 'app/Validators/<%= namePascal %>Validator'
 
 export class Create<%= namePascal %>Dto {
-  // Schema validation
-  static schema = Joi.object({
-    // Props in here
-  })
+  static type = 'createSchema'
+  static validator = <%= namePascal %>Validator
 
   // @ApiProperty()
   // <%= namePascal %> Props in here
 }
 
 export class Update<%= namePascal %>Dto {
-  // Schema validation
-  static schema = Joi.object({
-    // Props in here
-  })
+  static type = 'updateSchema'
+  static validator = <%= namePascal %>Validator
 
   // @ApiProperty()
   // <%= namePascal %> Props in here

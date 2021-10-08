@@ -38,9 +38,15 @@ describe('\n[E2E] <%= namePascal %> 🧱', () => {
   //
   //   expect(body.status).toBe(status)
   //   expect(body.error.message).toStrictEqual({
-  //     name: 'Validation Error',
+  //     name: 'Unprocessable Entity Error',
   //     statusCode: status,
-  //     validations: ['"name" is required'],
+  //     message: [
+  //       {
+  //         field: 'name',
+  //         message: 'required validation failed on name',
+  //         validation: 'required',
+  //       },
+  //     ],
   //   })
   // })
 })
