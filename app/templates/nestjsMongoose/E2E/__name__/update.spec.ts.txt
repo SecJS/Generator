@@ -51,7 +51,7 @@ describe('\n[E2E] <%= namePascal %> 🛠', () => {
     })
   })
 
-  // Implement all properties in app/Contracts/Dtos/<%= namePascal %>Dto.ts
+  // Implement all properties in app/Validators/<%= namePascal %>Validator.ts
   // And create tests to validate if the schema validator are working well.
 
   // it('should throw validation errors when trying to update a <%= nameCamel %> with validation errors', async () => {
@@ -65,9 +65,15 @@ describe('\n[E2E] <%= namePascal %> 🛠', () => {
   //
   //   expect(body.status).toBe(status)
   //   expect(body.error.message).toStrictEqual({
-  //     name: 'Validation Error',
+  //     name: 'Unprocessable Entity Error',
   //     statusCode: status,
-  //     validations: ['"name" must be a string'],
+  //     message: [
+  //       {
+  //         field: 'name',
+  //         message: 'string validation failed on name',
+  //         validation: 'string',
+  //       },
+  //     ],
   //   })
   // })
 })

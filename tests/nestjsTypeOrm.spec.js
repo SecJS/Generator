@@ -21,6 +21,7 @@ describe('\n NestJS TypeORM 😸', () => {
       './Foo/BarFactory.ts',
       './Foo/Dtos/BarDto.ts',
       './Foo/BarResource.ts',
+      './Foo/BarValidator.ts',
       './Foo/BarController.ts',
       './Foo/BarRepository.ts',
       './Foo/E2E/Bar/delete.spec.ts',
