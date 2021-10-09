@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Options } from '@secjs/base/decorators/Options'
 import { BaseService } from '@secjs/base/services/BaseService'
 import { <%= namePascal %>Resource } from 'app/Resources/<%= namePascal %>Resource'
 import { <%= namePascal %>Repository } from 'app/Repositories/<%= namePascal %>Repository'
