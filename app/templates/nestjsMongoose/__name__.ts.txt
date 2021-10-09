@@ -1,9 +1,17 @@
 import * as mongoose from 'mongoose'
-import { Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 
 @Schema({ timestamps: true })
 export class <%= namePascal %> {
-  // <%= namePascal %> props goes in here
+  @Prop({ type: String, default: 'pendent' })
+  status: 'pendent' | 'canceled' | 'active' | 'deleted'
+
+  @Prop({ type: Date, default: null })
+  deletedAt?: Date
+
+  createdAt: Date
+
+  updatedAt: Date
 }
 
 export type <%= namePascal %>Document = <%= namePascal %> & mongoose.Document

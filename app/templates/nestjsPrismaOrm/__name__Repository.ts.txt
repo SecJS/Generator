@@ -5,14 +5,14 @@ import { PrismaRepository } from '@secjs/base/repositories/PrismaRepository'
 
 @Injectable()
 export class <%= namePascal %>Repository extends PrismaRepository<<%= namePascal %>> {
-  protected wheres: []
-  protected relations: []
+  wheres = []
+  relations = []
 
-  protected Model: any
+  model: any
 
   constructor(private prisma: PrismaService) {
     super()
 
-    this.Model = this.prisma.<%= nameCamel %>
+    this.model = this.prisma.<%= nameCamel %>
   }
 }

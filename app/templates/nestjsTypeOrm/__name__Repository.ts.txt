@@ -1,11 +1,11 @@
+import { EntityRepository } from 'typeorm'
 import { <%= namePascal %> } from 'app/Models/<%= namePascal %>'
-import { Injectable } from '@nestjs/common'
 import { TypeOrmRepository } from '@secjs/base/repositories/TypeOrmRepository'
 
-@Injectable()
+@EntityRepository(<%= namePascal %>)
 export class <%= namePascal %>Repository extends TypeOrmRepository<<%= namePascal %>> {
-  protected wheres: []
-  protected relations: []
+  wheres = []
+  relations = []
 
-  protected Model = <%= namePascal %>
+  model = <%= namePascal %>.name
 }

@@ -11,7 +11,7 @@ describe('\n[E2E] <%= namePascal %> 🛠', () => {
 
     const status = 200
     const method = 'PUT'
-    const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}?apiKey=${apiKey}`
+    const path = `/<%= namePluralCamel %>/${<%= nameCamel %>.id}`
 
     const payload = {
       name: 'test',
@@ -31,7 +31,7 @@ describe('\n[E2E] <%= namePascal %> 🛠', () => {
   it('should throw a not found error when can not find <%= nameCamel %>', async () => {
     const status = 404
     const method = 'PUT'
-    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011?apiKey=${apiKey}`
+    const path = `/<%= namePluralCamel %>/507f1f77bcf86cd799439011`
 
     const { body } = await request(app.server.getHttpServer())
       .put(path)

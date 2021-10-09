@@ -21,10 +21,16 @@ export class <%= namePascal %>Resource {
        deletedAt: model.deletedAt,
      }
 
+     // For OneToMany relation
      // if (model.relations && isArrayOfObjects(model.relations)) {
      //   json.relations = new YourRelationResource().toArray(
      //     model.relations,
      //   )
+     // }
+
+     // For ManyToOne relation
+     // if (document.project?.toJSON()?._id) {
+     //   json.relation = new YourRelationResource().toJson(document.relation)
      // }
 
      return json
