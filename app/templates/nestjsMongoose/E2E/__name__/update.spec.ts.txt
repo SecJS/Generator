@@ -2,7 +2,7 @@ import * as request from 'supertest'
 
 import { Debug } from '@secjs/logger'
 import { AppModule } from 'app/AppModule'
-import { App, Database } from 'test/Utils'
+import { App, Database } from 'tests/Utils'
 import { <%= namePascal %>Factory } from 'database/factories/<%= namePascal %>Factory'
 
 describe('\n[E2E] <%= namePascal %> 🛠', () => {
