@@ -13,7 +13,7 @@ class <%= namePascal %>StoreRequest extends CoreRequest
      */
     protected function prepareForValidation()
     {
-        return $this->replace([
+        return $this->merge([
             //
         ]);
     }
