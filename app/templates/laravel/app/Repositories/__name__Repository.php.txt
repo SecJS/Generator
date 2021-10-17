@@ -23,7 +23,7 @@ class <%= namePascal %>Repository extends CoreRepository
      * Allowed model columns to use in sort
      * @var array
      */
-    protected $allow_order = array('created_at');
+    protected $allow_order = array('created_at','updated_at');
 
     /**
      * Allowed model columns to use in query search
@@ -35,7 +35,7 @@ class <%= namePascal %>Repository extends CoreRepository
      * Allowed model columns to use in filter by date
      * @var array
      */
-    protected $allow_between_dates = array('created_at');
+    protected $allow_between_dates = array('created_at','updated_at');
 
     /**
      * Allowed model columns to use in filter by value
