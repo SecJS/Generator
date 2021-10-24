@@ -45,13 +45,36 @@ class SecGenerator extends Generator {
           { name: 'NestJS TypeORM', value: 'nestjsTypeOrm' },
           { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
           { name: 'NestJS PrismaORM', value: 'nestjsPrismaOrm' },
+          { name: 'ReactJS', value: 'reactjs' },
+        ],
+      },
+      {
+        when: answers => answers.framework === 'reactjs',
+        type: 'list',
+        name: 'reactjs',
+        message: 'Select your component type:',
+        choices: [
+          { name: 'ReactJS Component', value: 'reactjsComponent' },
+          { name: 'ReactJS Material-UI', value: 'reactjsMui' },
+          { name: 'ReactJS StyledComponents', value: 'reactjsStyled' },
+          { name: 'ReactJS ContextAPI', value: 'reactjsContext' },
+          { name: 'ReactJS Hook', value: 'reactjsHook' },
         ],
       },
     ])
   }
 
+  frameworkChoice(framework) {
+    switch (framework) {
+      case 'reactjs':
+        return this.answers.reactjs
+      default:
+        return this.answers.framework
+    }
+  }
+
   async writing() {
-    const framework = this.answers.framework
+    const framework = this.frameworkChoice(this.answers.framework)
     const dir = path.join(__dirname, `templates/${framework}/`)
 
     for await (const f of makeFileTemplate(dir, this.variables.name)) {
