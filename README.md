@@ -40,6 +40,6 @@ yo secjs Foo --path=./Bar
 
 ...
 
-## License
+---
 
-MIT © [João Lenon](https://github.com/SecJS/Generator/blob/master/LICENSE)
+Made with 🖤 by [jlenon7](https://github.com/jlenon7) :wave

@@ -41,45 +41,52 @@ class SecGenerator extends Generator {
         name: 'framework',
         message: 'Select your framework:',
         choices: [
-          { name: 'Laravel', value: 'laravel' },
-          { name: 'NestJS TypeORM', value: 'nestjsTypeOrm' },
-          { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
-          { name: 'NestJS PrismaORM', value: 'nestjsPrismaOrm' },
+          { name: 'NestJS', value: 'nestjs' },
           { name: 'ReactJS', value: 'reactjs' },
+          { name: 'Laravel', value: 'laravel' },
         ],
       },
       {
         when: answers => answers.framework === 'reactjs',
         type: 'list',
-        name: 'reactjs',
-        message: 'Select your component type:',
+        name: 'template',
+        message: 'Select your template:',
         choices: [
+          { name: 'ReactJS Hook', value: 'reactjsHook' },
           { name: 'ReactJS Component', value: 'reactjsComponent' },
+          { name: 'ReactJS ContextAPI', value: 'reactjsContext' },
           { name: 'ReactJS Material-UI', value: 'reactjsMui' },
           { name: 'ReactJS StyledComponents', value: 'reactjsStyled' },
-          { name: 'ReactJS ContextAPI', value: 'reactjsContext' },
-          { name: 'ReactJS Hook', value: 'reactjsHook' },
         ],
+      },
+      {
+        when: answers => answers.framework === 'nestjs',
+        type: 'list',
+        name: 'template',
+        message: 'Select your template:',
+        choices: [
+          { name: 'NestJS TypeOrm', value: 'nestjsTypeOrm' },
+          { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
+          { name: 'NestJS PrismaOrm', value: 'nestjsPrismaOrm' },
+        ],
+      },
+      {
+        when: answers => answers.framework === 'laravel',
+        type: 'list',
+        name: 'template',
+        message: 'Select your template:',
+        choices: [{ name: 'Default', value: 'default' }],
       },
     ])
   }
 
-  frameworkChoice(framework) {
-    switch (framework) {
-      case 'reactjs':
-        return this.answers.reactjs
-      default:
-        return this.answers.framework
-    }
-  }
-
   async writing() {
-    const framework = this.frameworkChoice(this.answers.framework)
-    const dir = path.join(__dirname, `templates/${framework}/`)
+    const template = `${this.answers.framework}/${this.answers.template}`
+    const dir = path.join(__dirname, `templates/${template}/`)
 
     for await (const f of makeFileTemplate(dir, this.variables.name)) {
       this.fs.copyTpl(
-        this.templatePath(`${framework}/${f.src}`),
+        this.templatePath(`${template}/${f.src}`),
         this.destinationPath(`${this.variables.path}/${f.dist}`),
         this.variables,
       )
