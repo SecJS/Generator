@@ -1,0 +1,28 @@
+import React from 'react';
+import styled from 'styled-components'
+
+const Button = styled.button`
+  /* ... */
+`
+
+interface Props {
+  title: string;
+}
+
+const <%= namePascal %> = ({title}: Props): JSX.Element => {
+  const [data, setData] = React.useState<boolean>(false)
+
+  const handleClick = React.useCallback(() => {
+    setData(data => !data)
+  }, []);
+
+  return (
+    <div>
+      <Button onClick={handleClick}>
+        {title}
+      </Button>
+    </div>
+  );
+}
+
+export default <%= namePascal %>

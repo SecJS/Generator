@@ -1,0 +1,10 @@
+import { Reducer, useReducer } from 'react';
+
+const <%= namePascal %>Reducer = (state: boolean, nextValue?: any) =>
+  typeof nextValue === 'boolean' ? nextValue : !state;
+
+const use<%= namePascal %> = (initialValue: boolean): [boolean, (nextValue?: any) => void] => {
+  return useReducer<Reducer<boolean, any>>(<%= namePascal %>Reducer, initialValue);
+};
+
+export default use<%= namePascal %>;

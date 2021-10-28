@@ -1,0 +1,71 @@
+import { createContext, useContext, useReducer } from 'react';
+
+interface <%= namePascal %> {
+  id: number;
+  title: string;
+}
+
+interface <%= namePascal %>State {
+  <%= namePluralCamel %>: <%= namePascal %>[];
+}
+
+interface Action {
+  type: 'ADD' | 'DELETE';
+  <%= nameCamel %>: <%= namePascal %>;
+  id: string;
+}
+
+const <%= namePascal %>StateContext = createContext<<%= namePascal %>State>({
+  <%= nameCamel %>: [],
+});
+
+const <%= namePascal %>DispatchContext = createContext<React.Dispatch<Action>>(
+  null as unknown as React.Dispatch<Action>,
+);
+
+function <%= namePascal %>Reducer(state: <%= namePascal %>State, action: Action) {
+  switch (action.type) {
+    case 'ADD': {
+      return {
+        ...state,
+        <%= nameCamel %>: [...state.<%= namePluralCamel %>, action.<%= nameCamel %>],
+      };
+    }
+    case 'DELETE': {
+      const updated<%= namePascal %> = state.<%= namePluralCamel %>.filter((item) => item.id != action.id);
+      return {
+        ...state,
+        <%= namePluralCamel %>: updated<%= namePascal %>,
+      };
+    }
+    default: {
+      throw new Error('unhandled action type');
+    }
+  }
+}
+
+interface <%= namePascal %>Provider {
+  children: React.ReactNode;
+}
+
+/*
+Use the <%= namePascal %>ContextProvider to wrap your app and set up the <%= namePascal %>StateContext and <%= namePascal %>DispatchContext.
+*/
+
+export function <%= namePascal %>ContextProvider({ children }: <%= namePascal %>Provider): JSX.Element {
+  const [state, dispatch] = useReducer(<%= namePascal %>Reducer, {
+    <%= namePluralPascal %>: [],
+  });
+
+  return (
+    <<%= namePascal %>StateContext.Provider value={state}>
+      <<%= namePascal %>DispatchContext.Provider value={dispatch}>
+        {children}
+      </<%= namePascal %>DispatchContext.Provider>
+    </<%= namePascal %>StateContext.Provider>
+  );
+}
+
+export const use<%= namePascal %>DispatchContext = (): React.Dispatch<Action> =>
+  useContext(<%= namePascal %>DispatchContext);
+export const use<%= namePascal %>StateContext = (): <%= namePascal %>State => useContext(<%= namePascal %>StateContext);

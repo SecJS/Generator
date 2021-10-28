@@ -7,10 +7,10 @@ const assert = require('yeoman-assert')
 describe('\n NestJS Mongoose 😸', () => {
   beforeAll(() => {
     return helpers
-      .run(path.join(__dirname, '../app'))
+      .run(path.join(__dirname, '../../app'))
       .withOptions({ path: './Foo' })
       .withArguments('Bar')
-      .withPrompts({ framework: 'nestjsMongoose' })
+      .withPrompts({ framework: 'nestjs', template: 'nestjsMongoose' })
   })
 
   it('should create all files from resource Bar in folder Foo', () => {

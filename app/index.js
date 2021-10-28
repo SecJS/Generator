@@ -41,22 +41,52 @@ class SecGenerator extends Generator {
         name: 'framework',
         message: 'Select your framework:',
         choices: [
+          { name: 'NestJS', value: 'nestjs' },
+          { name: 'ReactJS', value: 'reactjs' },
           { name: 'Laravel', value: 'laravel' },
-          { name: 'NestJS TypeORM', value: 'nestjsTypeOrm' },
-          { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
-          { name: 'NestJS PrismaORM', value: 'nestjsPrismaOrm' },
         ],
+      },
+      {
+        when: answers => answers.framework === 'reactjs',
+        type: 'list',
+        name: 'template',
+        message: 'Select your template:',
+        choices: [
+          { name: 'ReactJS Hook', value: 'reactjsHook' },
+          { name: 'ReactJS Component', value: 'reactjsComponent' },
+          { name: 'ReactJS ContextAPI', value: 'reactjsContext' },
+          { name: 'ReactJS Material-UI', value: 'reactjsMui' },
+          { name: 'ReactJS StyledComponents', value: 'reactjsStyled' },
+        ],
+      },
+      {
+        when: answers => answers.framework === 'nestjs',
+        type: 'list',
+        name: 'template',
+        message: 'Select your template:',
+        choices: [
+          { name: 'NestJS TypeOrm', value: 'nestjsTypeOrm' },
+          { name: 'NestJS Mongoose', value: 'nestjsMongoose' },
+          { name: 'NestJS PrismaOrm', value: 'nestjsPrismaOrm' },
+        ],
+      },
+      {
+        when: answers => answers.framework === 'laravel',
+        type: 'list',
+        name: 'template',
+        message: 'Select your template:',
+        choices: [{ name: 'Default', value: 'default' }],
       },
     ])
   }
 
   async writing() {
-    const framework = this.answers.framework
-    const dir = path.join(__dirname, `templates/${framework}/`)
+    const template = `${this.answers.framework}/${this.answers.template}`
+    const dir = path.join(__dirname, `templates/${template}/`)
 
     for await (const f of makeFileTemplate(dir, this.variables.name)) {
       this.fs.copyTpl(
-        this.templatePath(`${framework}/${f.src}`),
+        this.templatePath(`${template}/${f.src}`),
         this.destinationPath(`${this.variables.path}/${f.dist}`),
         this.variables,
       )
