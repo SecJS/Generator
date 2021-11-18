@@ -3,13 +3,13 @@ import { Validator } from '@secjs/validator'
 
 @Injectable()
 export class <%= namePascal %>Validator extends Validator {
-  createSchema = () => {
+  get schema() {
     return {
       name: 'string|required',
     }
   }
 
-  updateSchema = () => {
+  get updateSchema() {
     return {
       name: 'string',
     }
